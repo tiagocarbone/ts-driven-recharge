@@ -36,7 +36,8 @@ export async function postPhoneService(req: Request, res: Response, next: NextFu
     */
 
 import { PhonePost } from "protocols";
-import { getPhoneByCpfRepository, postPhoneIncluiRepository, postPhoneVerificaCpfRepository, postPhoneVerificaNumeroRepository, postRechargeRepository } from "../repository/phone-repository";
+import { getPhoneByCpfRepository, postPhoneIncluiRepository, 
+    postPhoneVerificaCpfRepository, postPhoneVerificaNumeroRepository } from "../repository/phone-repository";
 
 export async function postPhoneService(phoneData: PhonePost) { 
     try {
@@ -67,14 +68,3 @@ export async function getPhoneService(cpf: string){
     }
 }
 
-export async function postRechargeService(idPhone: string, valorRecarga: number){
-
-    try {
-        const result = await  postRechargeRepository(idPhone, valorRecarga)
-        return result
-    } catch (err) {
-        throw err;
-    }
-    
-   
-}

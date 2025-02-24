@@ -21,3 +21,10 @@ export type Recarga ={
   valor_recarga: string, 
   telefone_id: string
 }
+
+export type RecargaGet = {
+  id: number,
+  valor_recarga: string, 
+  telefone_id: string,
+  registro_recarga : string | Date
+}

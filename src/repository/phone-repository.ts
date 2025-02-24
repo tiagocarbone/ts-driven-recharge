@@ -1,7 +1,9 @@
 
 
-import { PhonePost, Recarga } from "protocols"
+import { PhonePost } from "protocols"
 import { db } from "../db/db"
+
+
 
 export async function postPhoneRepository() {
 
@@ -90,28 +92,7 @@ export async function getPhoneByCpfRepository(cpf: string){
     return phoneById.rows
 }
 
-export async function postRechargeRepository(idPhone: string, valorRecarga:number): Promise<Recarga>{
-    try{
-        const result = await db.query(` select * from phone where id = $1 `, [idPhone])
-        if(result.rowCount == 0)  throw { type: "not found", message: "Esse numero nao consta no sistema!" };
 
-  
-        const inserOperation = await db.query(` insert into recargas 
-            (valor_recarga, telefone_id)
-            values($1, $2)
-            RETURNING *
-             `, [valorRecarga, idPhone])
-        
-        return inserOperation.rows[0]
-        
-
-
-    }catch(err){
-        throw err
-       console.log(err)
-    }
-   
-}
 
 
 async function pegaIdClientecpf_usuario(cpf_usuario: string){

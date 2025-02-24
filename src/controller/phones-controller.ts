@@ -1,6 +1,6 @@
 
 import { NextFunction, Request, Response } from "express";
-import { getPhoneService, postPhoneService, postRechargeService } from "../services/phone-service";
+import { getPhoneService, postPhoneService } from "../services/phone-service";
 
 export async function postPhoneController(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { numero, cpf_usuario } = req.body;
@@ -32,24 +32,4 @@ export async function getPhoneController(req:Request, res:Response, next:NextFun
         next(err)
     }
       
-}
-
-export async function postRechargeController(req:Request, res:Response, next:NextFunction): Promise<void> {
-
-    try{
-        const {id} = req.params;
-       const idPhone = req.params.id
-       
-        const valorRecarga =   req.body.valor_recarga
-        console.log("valorRecarga", valorRecarga)
-
-    if (!Number(id)) throw { type: "validation", message: "parametro deve ser NÚMERO!" }
-
-    const result = await postRechargeService(idPhone, valorRecarga);
-    res.status(201).send(result)
-
-    }catch(err){
-        next(err)
-    }
-    
 }

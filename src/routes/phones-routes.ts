@@ -1,7 +1,9 @@
 
-import { getPhoneController, postPhoneController, postRechargeController } from "../controller/phones-controller";
+import { getPhoneController, postPhoneController } from "../controller/phones-controller";
+
 import { Router } from "express";
 import { phonePostValidation, validateCpf, validateValorRecarga } from "../middlewares/validation-middleware";
+import { postRechargeController } from "../controller/recharges-controller";
 
 
 const phoneRouter = Router();
