@@ -1,5 +1,23 @@
 export type Phone = {
-    number : string,
-    operadora: string,
-    nome
+    id: number
+    numero : string,
+    descricao: string,
+    nome: string,
+    nome_operadora: string,
+    cpf_usuario: string
+}
+
+export type PhonePost = Omit<Phone, "id">;
+
+
+export type ErrorType = {
+  type: string;
+  message: string;
+}
+  
+
+export type Recarga ={
+  id: number,
+  valor_recarga: string, 
+  telefone_id: string
 }

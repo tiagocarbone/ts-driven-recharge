@@ -1,0 +1,25 @@
+post phone body {
+    numero,
+    descricao,
+    nome,
+    nome_operadora,
+    cpf_usuario
+}
+
+
+
+    post phones
+ {
+    "numero": "21988952127",
+    "descricao": "ffc",
+    "nome": "tiagoooooo",
+    "nome_operadora": "Claro",
+    "cpf_usuario": "80600700704"
+}
+
+
+
+post recharge {
+
+    valor_recarga : 1200
+}
