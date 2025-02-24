@@ -1,9 +1,5 @@
-
-
 import { PhonePost } from "protocols"
 import { db } from "../db/db"
-
-
 
 export async function postPhoneRepository() {
 
@@ -28,19 +24,16 @@ export async function postPhoneVerificaCpfRepository(cpf_usuario: string): Promi
     if (qtdeTelefone >= 3) return false;
     if (qtdeTelefone < 3) return true;
 
-
 }
 
 
 export async function postPhoneVerificaNumeroRepository(numeroTelefone: string): Promise<boolean> {
     const result = await db.query(` select * from phone where  numero = $1 ;`, [numeroTelefone])
-    //console.log(result.rows)
     if (result.rows.length == 0) return false
     if (result.rows.length >= 1) return true
 
 
 }
-
 
 export async function postPhoneIncluiRepository(telefone: PhonePost): Promise<void> {
 
@@ -91,8 +84,6 @@ export async function getPhoneByCpfRepository(cpf: string){
     
     return phoneById.rows
 }
-
-
 
 
 async function pegaIdClientecpf_usuario(cpf_usuario: string){

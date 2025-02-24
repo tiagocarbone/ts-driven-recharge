@@ -17,11 +17,6 @@ app.use((error: ErrorType, req: Request, res:Response, next: NextFunction) => {
     errorHandler(error, req, res, next);
   });
 
-
-/*
-app.use(errorHandler )
-
-*/
 app.listen(process.env.PORT || 5500, () => {
     console.log("server up")
 })

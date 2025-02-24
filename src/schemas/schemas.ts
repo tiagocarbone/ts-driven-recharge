@@ -1,7 +1,6 @@
 import joi from "joi";
 import { PhonePost } from "protocols";
 
-
 export const phoneSchema = joi.object<PhonePost>({
     numero : joi.string().min(10).max(11).required(),
     descricao: joi.string().required(),
@@ -11,7 +10,6 @@ export const phoneSchema = joi.object<PhonePost>({
 
 })
 
- 
 export const cpfSchema = joi.object({
     document: joi.string().length(11).required()
 });
@@ -21,13 +19,3 @@ export const valorSchema = joi.object({
 })
 
 
-/*
-export type Phone = {
-    id: number
-    numero : string,
-    descricao: string,
-    nome: string,
-    nome_operadora: string,
-    cpf_usuario: string
-}
-*/

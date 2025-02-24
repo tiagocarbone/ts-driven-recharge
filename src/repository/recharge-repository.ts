@@ -30,19 +30,14 @@ export async function postRechargeRepository(idPhone: string, valorRecarga:numbe
 }
 
 
-
 export async function getRechargeRepository(number: string): Promise<RecargaGet[] | void > {
     try{
         const resultPhone = await db.query(` select * from phone where numero = $1 `, [number])
+        if(resultPhone.rowCount == 0) throw { type: "not found", message: "Esse numero nao consta no sistema!" }; 
         const phoneId = resultPhone.rows[0].id
     
-        
-       
-
         const result = await db.query(`select * from recargas where telefone_id = $1;`, [phoneId])
-        
-       
-        console.log(result.rows)
+ 
         return result.rows
 
     }catch(err){

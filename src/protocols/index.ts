@@ -28,3 +28,34 @@ export type RecargaGet = {
   telefone_id: string,
   registro_recarga : string | Date
 }
+
+
+
+export type Recharge = {
+  valor_recarga: string,
+  registro_recargas: Date  | string
+}
+
+export type Carrier = {
+  name: string,
+  code: number | string
+}
+
+export type PhoneSummary = {
+  numero: string,
+  descricao: string,
+  nome: string,
+  carrier: Carrier,
+  recharges: Recharge[]
+}
+
+
+export type Summary = {
+  document: string,
+  phones: PhoneSummary[]  
+}
+
+
+
+
+

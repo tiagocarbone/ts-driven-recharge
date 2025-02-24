@@ -23,8 +23,5 @@ export async function getRechargeService(number: string){
         console.log(err)
         throw err;
     }
-        
-       console.log("service")
-    
    
 }

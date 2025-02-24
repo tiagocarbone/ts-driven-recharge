@@ -23,3 +23,5 @@ post recharge {
 
     valor_recarga : 1200
 }
+
+postgresql://recarrega_ai_user:mIYZB4SNDWbukjKE60m1ATVAaFWSVyJt@dpg-cuug099opnds73eec11g-a.oregon-postgres.render.com/recarrega_ai

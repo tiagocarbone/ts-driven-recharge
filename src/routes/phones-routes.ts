@@ -8,7 +8,7 @@ import { postRechargeController } from "../controller/recharges-controller";
 
 const phoneRouter = Router();
 
-//phoneRouter.get("/phones/health", healthFunctionController)
+
 phoneRouter.post("/phones", phonePostValidation, postPhoneController )
 phoneRouter.post("/recharges/:id", validateValorRecarga, postRechargeController)
 phoneRouter.get("/:document", validateCpf, getPhoneController )
