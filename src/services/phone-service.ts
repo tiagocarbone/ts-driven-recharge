@@ -18,6 +18,7 @@ export async function postPhoneService(phoneData: PhonePost) {
        
         
     } catch (err) {
+        console.log(err)
         throw err; 
     }
 }

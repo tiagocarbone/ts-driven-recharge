@@ -13,6 +13,7 @@ export async function postPhoneController(req: Request, res: Response, next: Nex
 
         res.sendStatus(201)
     } catch (err) {
+        console.log(err)
         next(err); 
     }
 }
@@ -29,6 +30,7 @@ export async function getPhoneController(req:Request, res:Response, next:NextFun
        const result = await getPhoneService(cpf)
        res.status(200).send(result)
     }catch(err){
+        console.log(err)
         next(err)
     }
       
