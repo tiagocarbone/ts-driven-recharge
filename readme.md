@@ -1,5 +1,8 @@
-## SCRIPTS
 
+
+# depploy https://ts-driven-recharge-2.onrender.com/
+
+## SCRIPTS
 CREATE TABLE carriers (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL UNIQUE,

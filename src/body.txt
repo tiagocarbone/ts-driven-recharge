@@ -19,8 +19,8 @@ post phone body {
 
 
 
-post recharge {
+post recharge/:idPhone {
 
-    valor_recarga : 1200
+    valor_recarga : 1000
 }
 
