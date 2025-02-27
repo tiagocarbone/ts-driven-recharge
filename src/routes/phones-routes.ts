@@ -11,7 +11,7 @@ const phoneRouter = Router();
 
 phoneRouter.post("/phones", phonePostValidation, postPhoneController )
 phoneRouter.post("/recharges/:id", validateValorRecarga, postRechargeController)
-phoneRouter.get("/:document", validateCpf, getPhoneController )
+phoneRouter.get("/phones/:document", validateCpf, getPhoneController )
 
 
 export default phoneRouter;
