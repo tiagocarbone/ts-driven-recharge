@@ -6,7 +6,7 @@ import { postRechargeController, getRechargeController } from "../controller/rec
 const rechargeRouter = Router();
 
 rechargeRouter.get("/recharges/:number", getRechargeController)
-rechargeRouter.post("/recharges/:id", validateValorRecarga, postRechargeController)
+rechargeRouter.post("/recharges/:idPhone", validateValorRecarga, postRechargeController)
 
 
 

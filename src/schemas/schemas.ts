@@ -1,5 +1,5 @@
 import joi from "joi";
-import { PhonePost } from "protocols";
+import { PhonePost, DocumentSchema, ValorRecargaSchema } from "protocols";
 
 export const phoneSchema = joi.object<PhonePost>({
     numero : joi.string().min(10).max(11).required(),
@@ -10,11 +10,11 @@ export const phoneSchema = joi.object<PhonePost>({
 
 })
 
-export const cpfSchema = joi.object({
+export const cpfSchema = joi.object<DocumentSchema>({
     document: joi.string().length(11).required()
 });
 
-export const valorSchema = joi.object({
+export const valorSchema = joi.object<ValorRecargaSchema>({
     valor_recarga: joi.number().min(10).max(1000).required()
 })
 

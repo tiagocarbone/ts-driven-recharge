@@ -19,13 +19,13 @@ export async function getRechargeController(req: Request, res: Response, next: N
 export async function postRechargeController(req: Request, res: Response, next: NextFunction): Promise<void> {
 
     try {
-        const { id } = req.params;
-        const idPhone = req.params.id
+        const { idPhone } = req.params;
+        const id = req.params.idPhone
         const valorRecarga = req.body.valor_recarga
 
-        if (!Number(id)) throw { type: "validation", message: "parametro deve ser NÚMERO!" }
+        if (!Number(idPhone)) throw { type: "validation", message: "parametro deve ser NÚMERO!" }
         
-        const result = await postRechargeService(idPhone, valorRecarga);
+        const result = await postRechargeService(id, valorRecarga);
         res.status(201).send(result)
 
     } catch (err) {

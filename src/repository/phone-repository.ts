@@ -1,4 +1,4 @@
-import { PhonePost } from "protocols"
+import { IdClienteResult, PhoneByIdResult, PhoneClienteInsert, PhonePost, PhoneResult, QtdTelefoneResult } from "protocols"
 import { db } from "../db/db"
 
 export async function postPhoneRepository() {
@@ -7,18 +7,27 @@ export async function postPhoneRepository() {
 }
 
 export async function postPhoneVerificaCpfRepository(cpf_usuario: string): Promise<boolean> {
-    const result = await db.query(`
+    const result = await db.query<IdClienteResult>(`
             select id from cliente where cpf = $1;`, [cpf_usuario])
 
-    const idCliente = result.rows[0].id
+    let idCliente: number | string;
+   
+    if(! result.rows || result.rows.length == 0 ){
+        const insertCliente = await db.query(`insert into cliente (cpf) values ($1) `, [cpf_usuario]) 
+    } else{
+        idCliente = result.rows[0].id
+    }
+
+    
+    
     console.log("idCliente", idCliente)
 
-    const qtdTelefoneResult = await db.query(` 
+    const qtdTelefoneResult = await db.query<QtdTelefoneResult[]>(` 
         select * from phone_cliente tb_meio
 	    join cliente on tb_meio.cliente_id = cliente.id
 	    where cliente.id = $1;  `, [idCliente])
 
-
+    console.log("passou verifica telefone")
     const qtdeTelefone = qtdTelefoneResult.rowCount
 
     if (qtdeTelefone >= 3) return false;
@@ -28,7 +37,7 @@ export async function postPhoneVerificaCpfRepository(cpf_usuario: string): Promi
 
 
 export async function postPhoneVerificaNumeroRepository(numeroTelefone: string): Promise<boolean> {
-    const result = await db.query(` select * from phone where  numero = $1 ;`, [numeroTelefone])
+    const result = await db.query<PhoneResult>(` select * from phone where  numero = $1 ;`, [numeroTelefone])
     if (result.rows.length == 0) return false
     if (result.rows.length >= 1) return true
 
@@ -45,7 +54,7 @@ export async function postPhoneIncluiRepository(telefone: PhonePost): Promise<vo
         
         
 
-        const insertPhone = await db.query(` INSERT INTO phone 
+        const insertPhone = await db.query<PhoneResult>(` INSERT INTO phone 
             (numero, descricao, nome, id_operadora)
             VALUES
             ($1, $2, $3, $4) RETURNING id; `, [telefone.numero, telefone.descricao, telefone.nome, codigoOperadora])
@@ -55,7 +64,7 @@ export async function postPhoneIncluiRepository(telefone: PhonePost): Promise<vo
             console.log(idCliente)
 
 
-        const inserTbPhoneCliente = await db.query(` insert into phone_cliente (phone_id, cliente_id) 
+        const inserTbPhoneCliente = await db.query<PhoneClienteInsert>(` insert into phone_cliente (phone_id, cliente_id) 
             VALUES  ($1, $2) `, [phoneId, idCliente])
         
 
@@ -71,9 +80,11 @@ export async function getPhoneByCpfRepository(cpf: string){
 
     const idCliente = await pegaIdClientecpf_usuario(cpf);
     
-    const phoneById = await db.query(` 
+   
+
+    const phoneById = await db.query<PhoneByIdResult>(` 
     select 
-	cliente.nome as nome_cliente, phone.numero, 
+	phone.numero, 
 	phone.descricao, phone.nome,
 	carriers.name
 	from phone_cliente
@@ -86,14 +97,18 @@ export async function getPhoneByCpfRepository(cpf: string){
 }
 
 
-async function pegaIdClientecpf_usuario(cpf_usuario: string){
-    const result = await db.query(`
-        select id from cliente where cpf = $1;`, [cpf_usuario])
-        const idCliente = result.rows[0].id
-        return idCliente
+async function pegaIdClientecpf_usuario(cpf_usuario: string): Promise<number | string> {
+    const result = await db.query<IdClienteResult>(`
+        SELECT id FROM cliente WHERE cpf = $1;`, [cpf_usuario]);
+
+    if (!result.rows || result.rows.length === 0) {
+        throw { type: "not found", message: "Não há cliente com esse CPF" };
+    }
+
+    return result.rows[0].id;
 }
 
-function pegaCodigoOperadora(nome_operadora: string) {
+function pegaCodigoOperadora(nome_operadora: string): number {
     switch (nome_operadora) {
         case 'Vivo':
             return 1
@@ -109,6 +124,6 @@ function pegaCodigoOperadora(nome_operadora: string) {
             return 4
 
         default:
-            throw { error: "unprocessable entity", mesage: "Erro no codigo da operadora" };
+            throw { type: "unprocessable entity", mesage: "Erro no codigo da operadora" };
     }
 }

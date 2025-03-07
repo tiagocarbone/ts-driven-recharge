@@ -1,16 +1,16 @@
-import { Summary } from "protocols";
+import { bigQuery, ClienteQuery, Summary } from "protocols";
 import { db } from "../db/db";
 
 export async function getSummaryRepository(document: string): Promise<Summary> {
     try {
 
-        const resultCliente = await db.query(` select * from cliente where cpf = $1 `, [document])
+        const resultCliente = await db.query<ClienteQuery>(` select * from cliente where cpf = $1 `, [document])
 
         if (resultCliente.rowCount == 0) throw { type: "not found", message: "Esse cpf nao consta no sistema!" };
 
         const idCliente = resultCliente.rows[0].id
 
-        const bigQuery = await db.query(`select * from phone_cliente
+        const bigQuery = await db.query<bigQuery>(`select * from phone_cliente
 	    join phone on phone_cliente.phone_id = phone.id
 	    join cliente on phone_cliente.cliente_id = cliente.id
 	    join carriers on phone.id_operadora = carriers.id

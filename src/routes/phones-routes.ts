@@ -10,7 +10,7 @@ const phoneRouter = Router();
 
 
 phoneRouter.post("/phones", phonePostValidation, postPhoneController )
-phoneRouter.post("/recharges/:id", validateValorRecarga, postRechargeController)
+//phoneRouter.post("/recharges/:id", validateValorRecarga, postRechargeController)
 phoneRouter.get("/phones/:document", validateCpf, getPhoneController )
 
 
