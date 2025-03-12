@@ -1,6 +1,6 @@
 
 
-# depploy https://ts-driven-recharge-2.onrender.com/
+# deploy https://ts-driven-recharge-2.onrender.com/
 
 ## SCRIPTS
 CREATE TABLE carriers (
