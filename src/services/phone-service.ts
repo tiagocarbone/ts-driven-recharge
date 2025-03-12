@@ -15,6 +15,7 @@ export async function postPhoneService(phoneData: PhonePost) {
         }
 
         const result = await postPhoneIncluiRepository(phoneData); 
+        return result
        
         
     } catch (err) {

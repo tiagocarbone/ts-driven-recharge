@@ -11,7 +11,7 @@ export async function postPhoneController(req: Request, res: Response, next: Nex
 
         const result = await postPhoneService(req.body);
 
-        res.sendStatus(201)
+        res.status(201).send(result)
     } catch (err) {
         console.log(err)
         next(err); 

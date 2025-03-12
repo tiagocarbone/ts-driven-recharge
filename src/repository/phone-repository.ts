@@ -1,4 +1,4 @@
-import { IdClienteResult, PhoneByIdResult, PhoneClienteInsert, PhonePost, PhoneResult, QtdTelefoneResult } from "protocols"
+import { IdClienteResult, Phone, PhoneByIdResult, PhoneClienteInsert, PhonePost, PhoneResult, QtdTelefoneResult } from "protocols"
 import { db } from "../db/db"
 
 export async function postPhoneRepository() {
@@ -44,7 +44,7 @@ export async function postPhoneVerificaNumeroRepository(numeroTelefone: string):
 
 }
 
-export async function postPhoneIncluiRepository(telefone: PhonePost): Promise<void> {
+export async function postPhoneIncluiRepository(telefone: PhonePost): Promise<Phone> {
 
     let codigoOperadora = 0;
 
@@ -62,12 +62,14 @@ export async function postPhoneIncluiRepository(telefone: PhonePost): Promise<vo
             let phoneId = insertPhone.rows[0].id
             console.log(phoneId)
             console.log(idCliente)
-
+           
 
         const inserTbPhoneCliente = await db.query<PhoneClienteInsert>(` insert into phone_cliente (phone_id, cliente_id) 
             VALUES  ($1, $2) `, [phoneId, idCliente])
         
-
+        
+        const phoneInserted = await db.query<Phone>(`select * from phone where id = $1`, [phoneId]);
+        return phoneInserted.rows[0]
 
     } catch (err) {
         console.log(err)

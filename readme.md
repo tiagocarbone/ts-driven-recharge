@@ -17,8 +17,7 @@ INSERT INTO carriers (name, code) VALUES ('Claro', 21);
 
 create table cliente (
 	id serial primary key,
-	cpf text not null,
-	nome text not null
+	cpf text not null
 );
 
 
